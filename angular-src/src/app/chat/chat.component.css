@@ -1,0 +1,48 @@
+em {
+  color: red;
+}
+
+.dialog,
+.users{
+  height: 500px;
+
+}
+
+.row{
+
+}
+
+.insidebox1{
+  margin-top: 15px;
+  height: 466px;
+  overflow-y: scroll;
+}
+ textarea {
+   width: 550px;
+   height: 100px;
+ }
+
+ button{
+   font-size: 40px;
+ }
+
+ .box1{
+   border: 1px solid black;
+   border-radius: 5px;
+   margin-top: 20px;
+ }
+
+ .insidebox2{
+   height: 300px;
+   overflow-y: auto;
+ }
+
+ i{
+   margin-right: 4px;
+   font-size: 30px;
+   margin-bottom: 4px;
+ }
+
+ .on{
+   color: #15ee32;
+ }

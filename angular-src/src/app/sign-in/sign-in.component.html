@@ -1,0 +1,27 @@
+<div id="login-overlay" class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">Welcome to Chatter</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-xs-6">
+                      <div class="well">
+                          <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                              <div class="form-group">
+                                  <label for="username" class="control-label">Username</label>
+                                  <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" value="" aria-describedby="passwordHelpInline" title="Please enter you username" placeholder="Username">
+                                   <small id="passwordHelpInline" class="text-muted"></small>
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-block" (click)="setUsername()">Enter Chat</button>
+                          </form>
+                      </div>
+                  </div>
+                  <div class="col-xs-6">
+                      <p class="lead">Please enter a username in order to chat</p>
+                      <p><a href="">project source code</a></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>

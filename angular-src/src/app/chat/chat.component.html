@@ -1,0 +1,36 @@
+
+<div class="container box1">
+  <div class="row">
+    <div class="col-lg-10 dialog">
+      <div class="well insidebox1" id="box">
+        <div class="textWrapper" *ngFor="let message of messages">
+          <em>{{message.username}}</em>:{{message.text}}
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 users">
+      <h2><small><em class="on">online </em></small>users</h2>
+      <div class="well insidebox2">
+        <div *ngFor="let user of onlineUsers">
+          {{user}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h1>{{username}}</h1>
+
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <textarea type="text" placeholder="Enter message" [(ngModel)]="message" name="message" value="" (keyup.enter)="sendMessage()"></textarea>
+    </div>
+    <div class="col-lg-6">
+      <button type="button" name="button" class="btn btn-primary" (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+
+
+</div>
