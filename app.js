@@ -1,16 +1,22 @@
 const express = require('express');
 
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const socket= require('socket.io')
+
+const server = app.listen(4200, () => {
+  console.log("server listnning");
+});
 
 
-const port = process.env.PORT|| 8080;
+
+app.use(express.static('client'));
+
+const io = socket(server);
 
 
 
 io.on('connection',(socket) => {
-      console.log('User Connected...');
+      console.log('User '+socket.id+' Connected...');
 
 
       socket.on('disconnect', () => {
@@ -22,13 +28,4 @@ io.on('connection',(socket) => {
       });
 
 
-});
-
-
-
-
-
-
-app.listen(port, () => {
-  console.log("server on port "+port);
 });

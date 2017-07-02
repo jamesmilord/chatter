@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
 export class ChatService {
-  private url = 'http://localhost:8000';
+  private url = 'http://localhost:4200';
   private socket: any;
   username: string;
   users: any=[];
