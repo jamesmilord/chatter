@@ -4,10 +4,10 @@ import {Observable} from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
 export class ChatService {
-  private url = 'http://localhost:4200';
+  private url = 'http://chatter-55.herokuapp.com:80';
   private socket: any;
   username: string;
-  users: any=[];
+  onlineUsers: any=[];
 
   sendMessage(message:string, username:string) {
     this.socket.emit('add-message', message, username);
@@ -19,6 +19,8 @@ export class ChatService {
       this.socket.on('message', (data: any) => {
           observer.next(data);
       });
+
+
 
       return () => {
         this.socket.disconnect();
@@ -34,6 +36,29 @@ export class ChatService {
 
   getUsername() {
     return this.username;
+  }
+
+
+
+
+
+  broadcasted(usertype: string){
+    this.socket.emit('typing', usertype );
+  }
+
+  userIsTyping(){
+    let observable = new Observable((observer:any)=> {
+      this.socket.on('typing', (data: any) => {
+          observer.next(data);
+      });
+
+    })
+      console.log('here');
+    return observable;
+
+
+
+
   }
 
 

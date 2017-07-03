@@ -1,10 +1,11 @@
 
-<div class="container box1">
+<div class="container-fluid box1">
   <div class="row">
-    <div class="col-lg-10 dialog">
+    <div class="col-lg-10  dialog">
       <div class="well insidebox1" id="box">
         <div class="textWrapper" *ngFor="let message of messages">
           <em>{{message.username}}</em>:{{message.text}}
+          <p class="time">{{time}}</p>
         </div>
       </div>
     </div>
@@ -24,10 +25,10 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-lg-6">
-      <textarea type="text" placeholder="Enter message" [(ngModel)]="message" name="message" value="" (keyup.enter)="sendMessage()"></textarea>
+    <div class="col-lg-6 center">
+      <textarea type="text" placeholder="Enter message" [(ngModel)]="message" name="message" value="" (keyup.enter)="sendMessage()" ></textarea>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 center">
       <button type="button" name="button" class="btn btn-primary" (click)="sendMessage()">Send</button>
     </div>
   </div>

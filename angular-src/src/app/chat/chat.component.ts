@@ -14,6 +14,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   connection: any;
   username:any = null;
   onlineUsers: any = [];
+  time: any = null;
+  typing: any = null;
 
   constructor(private chatService: ChatService, private router: Router) {
 
@@ -24,12 +26,32 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.message = '';
   }
 
+  broadcast(){
+    this.chatService.broadcasted(this.username);
+    console.log('broadcasted');
+  }
+
 
 
   ngOnInit() {
     this.connection = this.chatService.getMessages().subscribe((message)=> {
+      this.time = new Date().toLocaleTimeString();
       this.messages.push(message);
+
+
+
+
     });
+
+    this.connection = this.chatService.userIsTyping().subscribe((typing)=> {
+
+    console.log(typing);
+
+
+    });
+
+
+
 
     this.username = this.chatService.getUsername();
     this.onlineUsers.push(this.username);

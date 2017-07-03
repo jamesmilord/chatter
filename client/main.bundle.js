@@ -40,6 +40,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_chat_service__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -47,11 +48,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'app works!';
+    function AppComponent(chatService) {
+        this.chatService = chatService;
+        this.isValid = false;
+        this.username = null;
+        if (this.username != null) {
+            this.isValid = true;
+        }
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.username = this.chatService.getUsername();
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
@@ -59,9 +72,11 @@ AppComponent = __decorate([
         selector: 'app-root',
         template: __webpack_require__(202),
         styles: [__webpack_require__(193)]
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]) === "function" && _a || Object])
 ], AppComponent);
 
+var _a;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -74,11 +89,11 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__chat_chat_component__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__sign_in_sign_in_component__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_chat_service__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_chat_service__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -131,8 +146,8 @@ AppModule = __decorate([
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_chat_service__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_chat_service__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(39);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -153,15 +168,25 @@ var ChatComponent = (function () {
         this.messages = [];
         this.username = null;
         this.onlineUsers = [];
+        this.time = null;
+        this.typing = null;
     }
     ChatComponent.prototype.sendMessage = function () {
         this.chatService.sendMessage(this.message, this.username);
         this.message = '';
     };
+    ChatComponent.prototype.broadcast = function () {
+        this.chatService.broadcasted(this.username);
+        console.log('broadcasted');
+    };
     ChatComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.connection = this.chatService.getMessages().subscribe(function (message) {
+            _this.time = new Date().toLocaleTimeString();
             _this.messages.push(message);
+        });
+        this.connection = this.chatService.userIsTyping().subscribe(function (typing) {
+            console.log(typing);
         });
         this.username = this.chatService.getUsername();
         this.onlineUsers.push(this.username);
@@ -199,8 +224,8 @@ var _a, _b;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_chat_service__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_chat_service__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignInComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -269,7 +294,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "/*\r\n * Masthead for nav\r\n */\r\n\r\n.blog-masthead {\r\n  background-color: #428bca;\r\n  box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);\r\n}\r\n\r\n/* Nav links */\r\n.blog-nav-item {\r\n  position: relative;\r\n  display: inline-block;\r\n  padding: 10px;\r\n  font-weight: 500;\r\n  color: #cdddeb;\r\n}\r\n.blog-nav-item:hover,\r\n.blog-nav-item:focus {\r\n  color: #fff;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Active state gets a caret at the bottom */\r\n.blog-nav .active {\r\n  color: #fff;\r\n}\r\n.blog-nav .active:after {\r\n  position: absolute;\r\n  bottom: 0;\r\n  left: 50%;\r\n  width: 0;\r\n  height: 0;\r\n  margin-left: -5px;\r\n  vertical-align: middle;\r\n  content: \" \";\r\n  border-right: 5px solid transparent;\r\n  border-bottom: 5px solid;\r\n  border-left: 5px solid transparent;\r\n}\r\n", ""]);
+exports.push([module.i, "/*\r\n * Masthead for nav\r\n */\r\n\r\n.blog-masthead {\r\n  background-color: #428bca;\r\n  box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);\r\n}\r\n\r\n/* Nav links */\r\n.blog-nav-item {\r\n  position: relative;\r\n  display: inline-block;\r\n  padding: 10px;\r\n  font-weight: 500;\r\n  color: #cdddeb;\r\n}\r\n.blog-nav-item:hover,\r\n.blog-nav-item:focus {\r\n  color: #fff;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Active state gets a caret at the bottom */\r\n.blog-nav .active {\r\n  color: #fff;\r\n}\r\n.blog-nav .active:after {\r\n  position: absolute;\r\n  bottom: 0;\r\n  left: 50%;\r\n  width: 0;\r\n  height: 0;\r\n  margin-left: -5px;\r\n  vertical-align: middle;\r\n  content: \" \";\r\n  border-right: 5px solid transparent;\r\n  border-bottom: 5px solid;\r\n  border-left: 5px solid transparent;\r\n}\r\n\r\n\r\n.on{\r\n  color: #15ee32;\r\n}\r\n\r\n.onlineUsers {\r\n  display: none;\r\n  float: right;\r\n  margin-right: 10px;\r\n\r\n}\r\n\r\nli{\r\n  margin-top: 10px;\r\n}\r\n\r\n.alink {\r\n  color: white;\r\n  text-decoration: none;\r\n}\r\n\r\n@media(max-width: 1080px) {\r\n.onlineUsers{\r\n  display: unset;\r\n}\r\n}\r\n", ""]);
 
 // exports
 
@@ -287,7 +312,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "em {\r\n  color: red;\r\n}\r\n\r\n.dialog,\r\n.users{\r\n  height: 500px;\r\n\r\n}\r\n\r\n.row{\r\n\r\n}\r\n\r\n.insidebox1{\r\n  margin-top: 15px;\r\n  height: 466px;\r\n  overflow-y: scroll;\r\n}\r\n textarea {\r\n   width: 550px;\r\n   height: 100px;\r\n }\r\n\r\n button{\r\n   font-size: 40px;\r\n }\r\n\r\n .box1{\r\n   border: 1px solid black;\r\n   border-radius: 5px;\r\n   margin-top: 20px;\r\n }\r\n\r\n .insidebox2{\r\n   height: 300px;\r\n   overflow-y: auto;\r\n }\r\n\r\n i{\r\n   margin-right: 4px;\r\n   font-size: 30px;\r\n   margin-bottom: 4px;\r\n }\r\n\r\n .on{\r\n   color: #15ee32;\r\n }\r\n", ""]);
+exports.push([module.i, "em {\r\n  color: red;\r\n}\r\n\r\n.dialog,\r\n.users{\r\n  height: 500px;\r\n\r\n}\r\n\r\n.row{\r\n\r\n}\r\n\r\n.insidebox1{\r\n  margin-top: 15px;\r\n  height: 466px;\r\n  overflow-y: scroll;\r\n}\r\n textarea {\r\n   width: 550px;\r\n   height: 100px;\r\n }\r\n\r\n button{\r\n   font-size: 30px;\r\n   float: left;\r\n }\r\n\r\n .box1{\r\n   border: 1px solid black;\r\n   border-radius: 5px;\r\n   margin-top: 20px;\r\n }\r\n\r\n .insidebox2{\r\n   height: 300px;\r\n   overflow-y: auto;\r\n }\r\n\r\n i{\r\n   margin-right: 4px;\r\n   font-size: 30px;\r\n   margin-bottom: 4px;\r\n }\r\n\r\n .on{\r\n   color: #15ee32;\r\n }\r\n\r\n\r\n .time{\r\n   color: #080254;\r\n   font-style: italic;\r\n   font-size: 10px;\r\n   margin-left: 150px;\r\n }\r\n\r\n .center{\r\n   text-align: center;\r\n }\r\n\r\n @media(max-width: 1080px) {\r\n   .users{\r\n     display: none;\r\n   }\r\n\r\n   textarea {\r\n     width: 350px;\r\n     height: 70px;\r\n   }\r\n\r\n }\r\n", ""]);
 
 // exports
 
@@ -305,7 +330,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".instruction{\r\n  text-align: center;\r\n}\r\n", ""]);
 
 // exports
 
@@ -318,21 +343,21 @@ module.exports = module.exports.toString();
 /***/ 202:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"blog-masthead\">\n<div class=\"container\">\n  <nav class=\"blog-nav\">\n    <a class=\"blog-nav-item active\" href=\"/\"><strong>Chatter</strong></a>\n  </nav>\n</div>\n</div>\n<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<div class=\"blog-masthead\">\n<div class=\"container\">\n  <nav class=\"blog-nav\">\n    <a class=\"blog-nav-item active\" href=\"/\"><strong>Chatter</strong></a>\n    <li class=\"nav navbar-nav onlineUsers\" *ngIf=\"isValid\"><a class=\"alink\"><em class=\"on\">online </em>Users</a></li>\n  </nav>\n</div>\n</div>\n<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
 /***/ 203:
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"container box1\">\r\n  <div class=\"row\">\r\n    <div class=\"col-lg-10 dialog\">\r\n      <div class=\"well insidebox1\" id=\"box\">\r\n        <div class=\"textWrapper\" *ngFor=\"let message of messages\">\r\n          <em>{{message.username}}</em>:{{message.text}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-lg-2 users\">\r\n      <h2><small><em class=\"on\">online </em></small>users</h2>\r\n      <div class=\"well insidebox2\">\r\n        <div *ngFor=\"let user of onlineUsers\">\r\n          {{user}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <h1>{{username}}</h1>\r\n\r\n</div>\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-lg-6\">\r\n      <textarea type=\"text\" placeholder=\"Enter message\" [(ngModel)]=\"message\" name=\"message\" value=\"\" (keyup.enter)=\"sendMessage()\"></textarea>\r\n    </div>\r\n    <div class=\"col-lg-6\">\n      <button type=\"button\" name=\"button\" class=\"btn btn-primary\" (click)=\"sendMessage()\">Send</button>\n    </div>\r\n  </div>\r\n\r\n\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"container-fluid box1\">\r\n  <div class=\"row\">\r\n    <div class=\"col-lg-10  dialog\">\r\n      <div class=\"well insidebox1\" id=\"box\">\r\n        <div class=\"textWrapper\" *ngFor=\"let message of messages\">\r\n          <em>{{message.username}}</em>:{{message.text}}\r\n          <p class=\"time\">{{time}}</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-lg-2 users\">\r\n      <h2><small><em class=\"on\">online </em></small>users</h2>\r\n      <div class=\"well insidebox2\">\r\n        <div *ngFor=\"let user of onlineUsers\">\r\n          {{user}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <h1>{{username}}</h1>\r\n\r\n</div>\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-lg-6 center\">\r\n      <textarea type=\"text\" placeholder=\"Enter message\" [(ngModel)]=\"message\" name=\"message\" value=\"\" (keyup.enter)=\"sendMessage()\" ></textarea>\r\n    </div>\r\n    <div class=\"col-lg-6 center\">\r\n      <button type=\"button\" name=\"button\" class=\"btn btn-primary\" (click)=\"sendMessage()\">Send</button>\r\n    </div>\r\n  </div>\r\n\r\n\r\n</div>\r\n"
 
 /***/ }),
 
 /***/ 204:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"login-overlay\" class=\"modal-dialog\">\n      <div class=\"modal-content\">\n          <div class=\"modal-header\">\n              <h4 class=\"modal-title\" id=\"myModalLabel\">Welcome to Chatter</h4>\n          </div>\n          <div class=\"modal-body\">\n              <div class=\"row\">\n                  <div class=\"col-xs-6\">\n                      <div class=\"well\">\n                          <form id=\"loginForm\" method=\"POST\" action=\"/login/\" novalidate=\"novalidate\">\n                              <div class=\"form-group\">\n                                  <label for=\"username\" class=\"control-label\">Username</label>\n                                  <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"username\" name=\"username\" value=\"\" aria-describedby=\"passwordHelpInline\" title=\"Please enter you username\" placeholder=\"Username\">\n                                   <small id=\"passwordHelpInline\" class=\"text-muted\"></small>\n                              </div>\n                              <button type=\"submit\" class=\"btn btn-primary btn-block\" (click)=\"setUsername()\">Enter Chat</button>\n                          </form>\n                      </div>\n                  </div>\n                  <div class=\"col-xs-6\">\n                      <p class=\"lead\">Please enter a username in order to chat</p>\n                      <p><a href=\"\">project source code</a></p>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n"
+module.exports = "<div id=\"login-overlay\" class=\"modal-dialog\">\n      <div class=\"modal-content\">\n          <div class=\"modal-header\">\n              <h4 class=\"modal-title\" id=\"myModalLabel\">Welcome to Chatter</h4>\n          </div>\n          <div class=\"modal-body\">\n              <div class=\"row\">\n                  <div class=\"col-xs-6\">\n                      <div class=\"well\">\n                          <div class=\"form-group\">\n                              <label for=\"username\" class=\"control-label\">Username</label>\n                              <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"username\" name=\"username\" value=\"\" aria-describedby=\"passwordHelpInline\" title=\"Please enter you username\" placeholder=\"Username\">\n                               <small id=\"passwordHelpInline\" class=\"text-muted\"></small>\n                          </div>\n                          <button type=\"submit\" class=\"btn btn-primary btn-block\" (click)=\"setUsername()\">Enter Chat</button>\n                      </div>\n                  </div>\n                  <div class=\"col-xs-6 instruction\">\n                      <p class=\"lead\">Please enter a username in order to chat</p>\n                      <p><a href=\"https://github.com/jamesmilord/chatter\" target=\"_blank\">project source code</a></p>\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n"
 
 /***/ }),
 
@@ -351,7 +376,7 @@ module.exports = __webpack_require__(110);
 
 /***/ }),
 
-/***/ 39:
+/***/ 26:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -364,8 +389,8 @@ module.exports = __webpack_require__(110);
 
 var ChatService = (function () {
     function ChatService() {
-        this.url = 'http://localhost:4200';
-        this.users = [];
+        this.url = 'http://chatter-55.herokuapp.com:80';
+        this.onlineUsers = [];
     }
     ChatService.prototype.sendMessage = function (message, username) {
         this.socket.emit('add-message', message, username);
@@ -388,6 +413,19 @@ var ChatService = (function () {
     };
     ChatService.prototype.getUsername = function () {
         return this.username;
+    };
+    ChatService.prototype.broadcasted = function (usertype) {
+        this.socket.emit('typing', usertype);
+    };
+    ChatService.prototype.userIsTyping = function () {
+        var _this = this;
+        var observable = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (observer) {
+            _this.socket.on('typing', function (data) {
+                observer.next(data);
+            });
+        });
+        console.log('here');
+        return observable;
     };
     return ChatService;
 }());

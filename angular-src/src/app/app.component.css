@@ -39,3 +39,30 @@
   border-bottom: 5px solid;
   border-left: 5px solid transparent;
 }
+
+
+.on{
+  color: #15ee32;
+}
+
+.onlineUsers {
+  display: none;
+  float: right;
+  margin-right: 10px;
+
+}
+
+li{
+  margin-top: 10px;
+}
+
+.alink {
+  color: white;
+  text-decoration: none;
+}
+
+@media(max-width: 1080px) {
+.onlineUsers{
+  display: unset;
+}
+}

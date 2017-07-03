@@ -16,6 +16,7 @@ export class SignInComponent implements OnInit {
   setUsername() {
     if(this.username){
       this.chatService.setUsername(this.username);
+    
       this.router.navigate(['/chat']);
 
     }
