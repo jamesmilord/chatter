@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
 export class ChatService {
-  private url = 'https://chatter-55.herokuapp.com:80';
+  private url = 'https://chatter-55.herokuapp.com';
   // private url = 'localhost:5000';
   private socket: any;
   username: string;
