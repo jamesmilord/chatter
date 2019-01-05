@@ -1,11 +1,12 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const server = require('http').Server(app)
 const socket= require('socket.io')
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 5000;
 
-const server = app.listen(port, () => {
+server.listen(port, () => {
   console.log("server listnning on port"+port);
 });
 
