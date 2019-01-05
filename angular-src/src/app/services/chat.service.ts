@@ -38,10 +38,6 @@ export class ChatService {
     return this.username;
   }
 
-
-
-
-
   broadcasted(usertype: string){
     this.socket.emit('typing', usertype );
   }
