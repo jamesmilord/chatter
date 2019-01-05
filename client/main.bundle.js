@@ -389,7 +389,7 @@ module.exports = __webpack_require__(113);
 
 var ChatService = (function () {
     function ChatService() {
-        this.url = 'chatter-55.herokuapp.com:80';
+        this.url = 'https://chatter-55.herokuapp.com:80';
         this.onlineUsers = [];
     }
     ChatService.prototype.sendMessage = function (message, username) {
@@ -398,7 +398,7 @@ var ChatService = (function () {
     ChatService.prototype.getMessages = function () {
         var _this = this;
         var observable = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (observer) {
-            _this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(_this.url);
+            _this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(_this.url, { secure: true });
             _this.socket.on('message', function (data) {
                 observer.next(data);
             });

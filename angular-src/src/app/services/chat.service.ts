@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
 export class ChatService {
-  private url = 'chatter-55.herokuapp.com:80';
+  private url = 'https://chatter-55.herokuapp.com:80';
   private socket: any;
   username: string;
   onlineUsers: any=[];
@@ -15,7 +15,7 @@ export class ChatService {
 
   getMessages() {
     let observable = new Observable((observer:any)=> {
-      this.socket = io(this.url);
+      this.socket = io(this.url, {secure: true});
       this.socket.on('message', (data: any) => {
           observer.next(data);
       });
