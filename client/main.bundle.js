@@ -389,7 +389,7 @@ module.exports = __webpack_require__(113);
 
 var ChatService = (function () {
     function ChatService() {
-        this.url = 'https://chatter-55.herokuapp.com:80';
+        this.url = 'chatter-55.herokuapp.com:80';
         this.onlineUsers = [];
     }
     ChatService.prototype.sendMessage = function (message, username) {
