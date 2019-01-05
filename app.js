@@ -13,6 +13,8 @@ const server = app.listen(port, () => {
 
 app.use(express.static(path.join(__dirname, 'client')));
 
+
+
 const io = socket(server);
 
 
@@ -31,9 +33,13 @@ io.on('connection',(socket) => {
 
 
 
+
+
       socket.on('typing', (data)=>{
       socket.broadcast.emit('typing', data);
       });
+
+
 
 
 
